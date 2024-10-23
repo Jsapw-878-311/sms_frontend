@@ -1,79 +1,13 @@
 <template>
   <el-card class="category-container">
-    <template #header>
-      <div class="header">
-        <el-button type="primary" :icon="Plus" @click="handleAdd">增加</el-button>
-        <el-popconfirm
-          title="确定删除吗？"
-          confirmButtonText='确定'
-          cancelButtonText='取消'
-          @confirm="handleDelete"
-        >
-          <template #reference>
-            <el-button type="danger" :icon="Delete">批量删除</el-button>
-          </template>
-        </el-popconfirm>
-      </div>
-    </template>
-    <el-table
-      :load="state.loading"
-      ref="multipleTable"
-      :data="state.tableData"
-      tooltip-effect="dark"
-      style="width: 100%"
-      @selection-change="handleSelectionChange">
-      <el-table-column
-        type="selection"
-        width="55"
-      >
-      </el-table-column>
-      <el-table-column
-        prop="categoryName"
-        label="分类名称"
-      >
-      </el-table-column>
-      <el-table-column
-        prop="categoryRank"
-        label="排序值"
-        width="120"
-      >
-      </el-table-column>
-      <el-table-column
-        prop="createTime"
-        label="添加时间"
-        width="200"
-      >
-      </el-table-column>
-      <el-table-column
-        label="操作"
-        width="220"
-      >
-        <template #default="scope">
-          <a style="cursor: pointer; margin-right: 10px" @click="handleEdit(scope.row.categoryId)">修改</a>
-          <a style="cursor: pointer; margin-right: 10px" @click="handleNext(scope.row)">下级分类</a>
-          <el-popconfirm
-            title="确定删除吗？"
-            confirmButtonText='确定'
-            cancelButtonText='取消'
-            @confirm="handleDeleteOne(scope.row.categoryId)"
-          >
-            <template #reference>
-              <a style="cursor: pointer">删除</a>
-            </template>
-          </el-popconfirm>
-        </template>
-      </el-table-column>
-    </el-table>
-    <!--总数超过一页，再展示分页器-->
-    <el-pagination
-      background
-      layout="prev, pager, next"
-      :total="state.total"
-      :page-size="state.pageSize"
-      :current-page="state.currentPage"
-      @current-change="changePage"
-    />
-    <DialogAddCategory ref='addCate' :reload="getCategory" :type="state.type" />
+    <el-card class="categrey_title">
+      <h3 class="card-title">卡密购买地址： <small><a href="https://www.beanstore.top/" target="_blank">点我购买卡密</a></small></h3>
+    </el-card>
+    <el-card>
+      <div class="categrey_kami_title"><label>请输入卡密</label></div>
+      <el-input type="password" name="key" class="form-control" placeholder="卡密号码"></el-input>
+    </el-card>
+    <el-button type="button" class="categrey_submit" onclick="submit_send(this.form)">提交</el-button>
   </el-card>
 </template>
 
@@ -195,5 +129,32 @@ const handleDeleteOne = (id) => {
 </script>
 
 <style>
-
+  .categrey_title {
+    height: auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 20px;
+  }
+  .categrey_kami_title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  .form-control {
+    width: 100%;
+    height: 50px;
+    margin-right: 20px;
+    font-size: 20px;
+  }
+  .categrey_submit {
+    margin-top: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    background-color: #1BAEAE;
+    width: 100%;
+    height: 70px;
+    font-size: 25px;
+  }
 </style>

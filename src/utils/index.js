@@ -22,24 +22,25 @@ export function hasEmoji (str = '') {
 }
 
 // 单张图片上传
-export const uploadImgServer = 'http://backend-api-02.newbee.ltd/manage-api/v1/upload/file'
+export const uploadImgServer = 'http://43.135.38.246:9595/manage-api/v1/upload/file'
 // 多张图片上传
-export const uploadImgsServer = 'http://backend-api-02.newbee.ltd/manage-api/v1/upload/files'
+export const uploadImgsServer = 'http://43.135.38.246:9595/manage-api/v1/upload/files'
 
 export const pathMap = {
   login: '登录',
-  introduce: '系统介绍',
-  dashboard: '大盘数据',
-  add: '添加商品',
-  swiper: '轮播图配置',
-  hot: '热销商品配置',
+  register: '注册',
+  introduce: '用户首页',
+  dashboard: '用户首页',
+  add: '退出登录',
+  swiper: '可选国家',
+  charge: '卡密充值',
+  info: '使用说明',
   new: '新品上线配置',
   recommend: '为你推荐配置',
-  category: '分类管理',
   level2: '分类二级管理',
   level3: '分类三级管理',
-  good: '商品管理',
-  guest: '会员管理',
+  chargelist: '充值记录',
+  guest: '美国实卡',
   order: '订单管理',
   order_detail: '订单详情',
   account: '修改账户'

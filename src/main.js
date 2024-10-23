@@ -13,6 +13,7 @@ import {
   ElCheckbox,
   ElPopover,
   ElTag,
+  ElLink,
   ElCard,
   ElTable,
   ElTableColumn,
@@ -56,7 +57,7 @@ app.config.globalProperties.$filters = {
     if (url && url.startsWith('http')) {
       return url
     } else {
-      url = `http://backend-api-02.newbee.ltd${url}`
+      url = `http://43.135.38.246:9595${url}`
       return url
     }
   }
@@ -82,6 +83,7 @@ app.use(ElButton)
   .use(ElInput)
   .use(ElPopover)
   .use(ElTag)
+  .use(ElLink)
   .use(ElCard)
   .use(ElTable)
   .use(ElTableColumn)

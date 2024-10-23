@@ -33,9 +33,14 @@ const router = createRouter({
       component: () => import(/* webpackChunkName: "swiper" */ '../views/Swiper.vue')
     },
     {
-      path: '/hot',
-      name: 'hot',
+      path: '/info',
+      name: 'info',
       component: () => import(/* webpackChunkName: "hot" */ '../views/IndexConfig.vue')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import(/* webpackChunkName: "register" */ '../views/Register.vue')
     },
     {
       path: '/new',
@@ -48,8 +53,8 @@ const router = createRouter({
       component: () => import(/* webpackChunkName: "recommend" */ '../views/IndexConfig.vue')
     },
     {
-      path: '/category',
-      name: 'category',
+      path: '/charge',
+      name: 'charge',
       component: () => import(/* webpackChunkName: "category" */ '../views/Category.vue'),
       children: [
         {
@@ -65,8 +70,8 @@ const router = createRouter({
       ]
     },
     {
-      path: '/good',
-      name: 'good',
+      path: '/chargelist',
+      name: 'chargelist',
       component: () => import(/* webpackChunkName: "new" */ '../views/Good.vue')
     },
     {

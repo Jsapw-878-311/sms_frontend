@@ -4,8 +4,10 @@
       <el-aside class="aside">
         <div class="head">
           <div>
-            <img src="//s.weituibao.com/1582958061265/mlogo.png" alt="logo">
-            <span>vue3 admin</span>
+<!--            <img src="//s.weituibao.com/1582958061265/mlogo.png" alt="logo">-->
+<!--            <el-image src="https://www.baidu.com/img/flexible/logo/pc/result@2.png" :fit="fit" alt="logo"/>-->
+            <el-image src="https://zhifu.qsbl.pw/assets/img/logo.png" :fit="fit" alt="logo"/>
+            <span></span>
           </div>
         </div>
         <div class="line" />
@@ -18,41 +20,43 @@
         >
           <el-sub-menu index="1">
             <template #title>
-              <span>Dashboard</span>
+              <span>我的账户</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/"><el-icon><Odometer /></el-icon>首页</el-menu-item>
-              <el-menu-item index="/add"><el-icon><Plus /></el-icon>添加商品</el-menu-item>
+              <el-menu-item index="/introduce"><el-icon><User /></el-icon>首页</el-menu-item>
+              <el-menu-item index="/account"><el-icon><Lock /></el-icon>修改密码</el-menu-item>
+              <el-menu-item>
+                  <div class="main_logout" @click="logout_out">
+                      <el-icon><Plus /></el-icon>退出登录
+                  </div>
+              </el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
            <el-sub-menu index="2">
             <template #title>
-              <span>首页配置</span>
+              <span>接码</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/swiper"><el-icon><Picture /></el-icon>轮播图配置</el-menu-item>
-              <el-menu-item index="/hot"><el-icon><StarFilled /></el-icon>热销商品配置</el-menu-item>
-              <el-menu-item index="/new"><el-icon><Sell /></el-icon>新品上线配置</el-menu-item>
-              <el-menu-item index="/recommend"><el-icon><ShoppingCart /></el-icon>为你推荐配置</el-menu-item>
+              <el-menu-item index="/swiper"><el-icon><Menu /></el-icon>可选国家(全是实卡)</el-menu-item>
+              <el-menu-item ><el-icon><Picture /></el-icon>美国实卡</el-menu-item>
+<!--                index="/guest"-->
             </el-menu-item-group>
           </el-sub-menu>
           <el-sub-menu index="3">
             <template #title>
-              <span>模块管理</span>
+              <span>自助充值</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/category"><el-icon><Menu /></el-icon>分类管理</el-menu-item>
-              <el-menu-item index="/good"><el-icon><Goods /></el-icon>商品管理</el-menu-item>
-              <el-menu-item index="/guest"><el-icon><User /></el-icon>会员管理</el-menu-item>
-              <el-menu-item index="/order"><el-icon><List /></el-icon>订单管理</el-menu-item>
+              <el-menu-item index="/charge"><el-icon><Sell /></el-icon>卡密充值</el-menu-item>
+              <el-menu-item index="/chargelist"><el-icon><Goods /></el-icon>充值记录</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
           <el-sub-menu index="4">
             <template #title>
-              <span>系统管理</span>
+              <span>教学说明</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/account"><el-icon><Lock /></el-icon>修改密码</el-menu-item>
+              <el-menu-item index="/info"><el-icon><Odometer /></el-icon>使用说明</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
         </el-menu>
@@ -74,11 +78,12 @@
 <script setup>
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from '@/utils/axios'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
-import { localGet, pathMap } from '@/utils'
+import { localGet, localRemove, pathMap } from '@/utils'
 
-const noMenu = ['/login']
+const noMenu = ['/login', '/register']
 const router = useRouter()
 const state = reactive({
   showMenu: true,
@@ -91,7 +96,7 @@ router.afterEach((to, from) => {
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.path == '/login') {
+  if (to.path === '/login' || to.path === '/register') {
     // 如果路径是 /login 则正常执行
     next()
   } else {
@@ -107,6 +112,17 @@ router.beforeEach((to, from, next) => {
   state.currentPath = to.path
   document.title = pathMap[to.name]
 })
+
+
+// 退出登录
+const logout_out = () => {
+  axios.post('/user/logout').then(() => {
+    // 退出之后，将本地保存的 token  清理掉
+    localRemove('token')
+    // 回到登录页
+    router.push({ path: '/login' })
+  })
+}
 </script>
 
 <style scoped>
@@ -188,4 +204,8 @@ router.beforeEach((to, from, next) => {
   .el-popper__arrow {
     display: none;
   }
+    .main_logout {
+        width: 100%;
+        height: 100%;
+    }
 </style>

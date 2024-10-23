@@ -19,8 +19,9 @@
           </div>
         </template>
         <div class="nickname">
-          <p>登录名：{{ state.userInfo && state.userInfo.loginUserName || '' }}</p>
+          <p>登录名：{{ state.userInfo && state.userInfo.loginName || '' }}</p>
           <p>昵称：{{ state.userInfo && state.userInfo.nickName || '' }}</p>
+          <p>签名：{{ state.userInfo && state.userInfo.introduceSign || '' }}</p>
           <el-tag size="small" effect="dark" class="logout" @click="logout">退出</el-tag>
         </div>
       </el-popover>
@@ -28,6 +29,7 @@
   </div>
 </template>
 
+<!--已修改-->
 <script setup>
 import { onMounted, reactive } from 'vue'
 import { useRouter } from 'vue-router'
@@ -49,12 +51,12 @@ const state = reactive({
 })
 // 获取用户信息
 const getUserInfo = async () => {
-  const userInfo = await axios.get('/adminUser/profile')
+  const userInfo = await axios.get('/user/info')
   state.userInfo = userInfo
 }
 // 退出登录
 const logout = () => {
-  axios.delete('/logout').then(() => {
+  axios.post('/user/logout').then(() => {
     // 退出之后，将本地保存的 token  清理掉
     localRemove('token')
     // 回到登录页

@@ -1,19 +1,22 @@
 <template>
   <el-card class="account-container">
-    <el-form :model="state.nameForm" :rules="state.rules" ref="nameRef" label-width="80px" label-position="right" class="demo-ruleForm">
-      <el-form-item label="登录名：" prop="loginName">
-        <el-input style="width: 200px" v-model="state.nameForm.loginName"></el-input>
-      </el-form-item>
+    <el-form :model="state.nameForm" :rules="state.rules" ref="nameRef" label-width="120px" label-position="right" class="demo-ruleForm">
       <el-form-item label="昵称：" prop="nickName">
         <el-input style="width: 200px" v-model="state.nameForm.nickName"></el-input>
       </el-form-item>
+      <el-form-item label="个性签名：" prop="loginName">
+        <el-input style="width: 200px" v-model="state.nameForm.loginName"></el-input>
+      </el-form-item>
+<!--      <el-form-item label="新密码：" prop="newpass">-->
+<!--        <el-input style="width: 200px" v-model="state.passForm.newpass"></el-input>-->
+<!--      </el-form-item>-->
       <el-form-item>
         <el-button type="danger" @click="submitName">确认修改</el-button>
       </el-form-item>
     </el-form>
   </el-card>
   <el-card class="account-container">
-    <el-form :model="state.passForm" :rules="state.rules" ref="passRef" label-width="80px" label-position="right" class="demo-ruleForm">
+    <el-form :model="state.passForm" :rules="state.rules" ref="passRef" label-width="120px" label-position="right" class="demo-ruleForm">
       <el-form-item label="原密码：" prop="oldpass">
         <el-input style="width: 200px" v-model="state.passForm.oldpass"></el-input>
       </el-form-item>
@@ -27,6 +30,7 @@
   </el-card>
 </template>
 
+<!--已修改-->
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
 import axios from '@/utils/axios'
@@ -61,18 +65,19 @@ const state = reactive({
   },
 })
 onMounted(() => {
-  axios.get('/adminUser/profile').then(res => {
+  axios.get('/user/info').then(res => {
     state.user = res
-    state.nameForm.loginName = res.loginUserName
+    state.nameForm.loginName = res.introduceSign
     state.nameForm.nickName = res.nickName
   })
 })
 const submitName = () => {
   nameRef.value.validate((vaild) => {
     if (vaild) {
-      axios.put('/adminUser/name', {
-        loginUserName: state.nameForm.loginName,
+      axios.put('/user/info', {
+        introduceSign: state.nameForm.loginName,
         nickName: state.nameForm.nickName
+        // passwordMd5: md5(state.passForm.newpass)
       }).then(() => {
         ElMessage.success('修改成功')
         window.location.reload()
@@ -83,9 +88,9 @@ const submitName = () => {
 const submitPass = () => {
   passRef.value.validate((vaild) => {
     if (vaild) {
-      axios.put('/adminUser/password', {
-        originalPassword: md5(state.passForm.oldpass),
-        newPassword: md5(state.passForm.newpass)
+      axios.put('/user/info', {
+        // originalPassword: md5(state.passForm.oldpass),
+        passwordMd5: md5(state.passForm.newpass)
       }).then(() => {
         ElMessage.success('修改成功')
         window.location.reload()
