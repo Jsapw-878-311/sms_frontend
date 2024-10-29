@@ -76,7 +76,7 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from '@/utils/axios'
 import Header from '@/components/Header.vue'
@@ -91,6 +91,13 @@ const state = reactive({
   currentPath: '/',
 })
 
+onMounted(() => {
+    // console.log(localGet('token'))
+    if (!localGet('token')) {
+        // 如果没有，则跳至登录页面
+        next({ path: '/login' })
+    }
+})
 router.afterEach((to, from) => {
   state.showMenu = !noMenu.includes(to.path)
 })

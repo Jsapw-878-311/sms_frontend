@@ -20,7 +20,7 @@
           <div style="color: #333">登录表示您已同意<a>《服务条款》</a></div>
           <el-button style="width: 100%" type="primary" @click="submitForm">立即登录</el-button>
           <el-checkbox style="margin-right: 60px" v-model="state.checked" @change="!state.checked">下次自动登录</el-checkbox>
-          <el-link style="justify-content: flex-end;" href="/#/register" target="_blank">没有账号？立即注册</el-link>
+          <el-link style="justify-content: flex-end;" href="/#/register" target="_self">没有账号？立即注册</el-link>
         </el-form-item>
       </el-form>
     </div>

@@ -23,7 +23,7 @@
                 </el-select>
             </div>
         </div>
-        <el-button type="button" class="categrey_submit" @click="getPrice">获取参考价格</el-button>
+        <el-button type="button" class="swiper_submit" @click="getPrice">获取参考价格</el-button>
 
         <el-table
                 :load="state.selectloading"
@@ -47,6 +47,7 @@
                     label="操作">
                     <el-button
                             class="swiper_got_number"
+                            type="button"
                             size="mini"
                             @click="getphonenumber">获取号码</el-button>
             </el-table-column>
@@ -87,6 +88,7 @@
             <el-table-column
                     label="操作">
                 <el-button
+                        type="button"
                         class="swiper_got_number"
                         size="mini"
                         @click="cancelSMSOrder">释放</el-button>
@@ -126,6 +128,7 @@
             <el-table-column
                     label="操作">
                 <el-button
+                        type="button"
                         class="swiper_got_number"
                         size="mini"
                         @click="reuse">重用</el-button>
@@ -321,7 +324,7 @@ const handleEdite = async (index, row) =>  {
         margin-top: 20px;
         font-size: 20px;
     }
-    .categrey_submit {
+    .swiper_submit {
         margin-top: 20px;
         border-radius: 10px;
         margin-bottom: 30px;
